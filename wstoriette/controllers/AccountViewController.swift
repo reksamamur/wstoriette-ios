@@ -23,7 +23,6 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupView() {
         view.clipsToBounds = true
         view.addSubview(tableView)
-        view.backgroundColor = .white
         
         tableView.fillSuperview()
         tableView.delegate = self
