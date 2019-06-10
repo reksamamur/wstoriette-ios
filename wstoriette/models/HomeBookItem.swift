@@ -18,7 +18,7 @@ struct HomeBookItem {
     
     let cellType: CellType
     
-    let bookResults: [FeedResult]
+    let bookResults: [GetStories]
     
     enum CellType: String {
         case single

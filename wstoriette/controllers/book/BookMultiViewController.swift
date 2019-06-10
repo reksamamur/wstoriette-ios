@@ -12,7 +12,7 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
     
     let cellId = "cellId"
     
-    var results = [FeedResult]()
+    var results = [GetStories]()
     
     let closeButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -55,10 +55,13 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clicked = results[indexPath.item]
-        let trackStringId = String(clicked.id)
         if mode == .fullscreen {
             let mview = BookDetailViewController()
-            mview.detailId = trackStringId
+            mview.ftitle = clicked.title
+            mview.fimg = clicked.img
+            mview.fsynopsis = clicked.synopsis
+            mview.fauthor = clicked.author
+            
             navigationController?.pushViewController(mview, animated: true)
         }
     }

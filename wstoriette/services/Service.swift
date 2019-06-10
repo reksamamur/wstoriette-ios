@@ -12,6 +12,7 @@ import UIKit
 class Service {
     
     static let shared = Service()
+    fileprivate let mainURL = "http://storiette-api.azurewebsites.net/getStories"
     
     func fetch(searchTerm: String, completion: @escaping ([ResultJSON], Error?) -> ()) {
         print("Fetching")
@@ -32,6 +33,32 @@ class Service {
             do{
                 let sreasult = try JSONDecoder().decode(SearchResultJSON.self, from: data)
                 completion(sreasult.results, nil)
+            }catch {
+                print("Errr", error)
+                completion([], error)
+            }
+            }.resume()
+    }
+    
+    func fetchGetStories(completion: @escaping ([GetStories], Error?) -> ()) {
+        print("Fetching")
+        
+        let urlString = mainURL
+        let realURL = URL(string: urlString)
+        URLSession.shared.dataTask(with: realURL!) { (data, respons, err) in
+            
+            //fail
+            if let er = err {
+                print("Fail", er)
+                completion([], nil)
+                return
+            }
+            
+            guard let data = data else {return}
+            
+            do{
+                let sreasult = try JSONDecoder().decode([GetStories].self, from: data)
+                completion(sreasult, nil)
             }catch {
                 print("Errr", error)
                 completion([], error)

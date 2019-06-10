@@ -30,6 +30,8 @@ class DetailViewCell: UICollectionViewCell {
     
     let categoryLabel = UILabel(text: "Fiction", font: .systemFont(ofSize: 15))
     
+    let favoriteButton = UIButton(title: "Favorite")
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -43,6 +45,7 @@ class DetailViewCell: UICollectionViewCell {
         readButton.layer.cornerRadius = 8
         readButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         readButton.setTitleColor(.black, for: .normal)
+        favoriteButton.setTitleColor(.black, for: .normal)
         descriptionContentLabel.textAlignment = .justified
         
         let stackView = VerticalStackView(arrangedSubviews: [
@@ -51,6 +54,7 @@ class DetailViewCell: UICollectionViewCell {
                 VerticalStackView(arrangedSubviews: [
                     titleLabel,
                     readButton,
+                    favoriteButton,
                     UIView()
                     ], spacing: 12)
                 ], customSpacing: 20),

@@ -22,6 +22,7 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
     static let cellSize: CGFloat = 500
     
     var items = [HomeBookItem]()
+    var getstories = [GetStories]()
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -35,8 +36,9 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
         super.viewDidLoad()
         tabBarController?.tabBar.superview?.setNeedsLayout() 
         setupView()
-        fetchData()
+        /*fetchData()*/
         setupActivityIndicator()
+        fetchStories()
     }
     
     func setupActivityIndicator() {
@@ -50,10 +52,45 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
         collectionView.register(BookViewMultiCell.self, forCellWithReuseIdentifier: HomeBookItem.CellType.multi.rawValue)
     }
     
-    func fetchData() {
+    func fetchStories() {
+        let realURl = "https://storiette-api.azurewebsites.net/getStories"
+        guard let urlMain = URL(string: realURl) else {return}
+        URLSession.shared.dataTask(with: urlMain) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                self.activityIndicatorView.stopAnimating()
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    self.getstories = try jDecoder.decode([GetStories].self, from: data)
+                    
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                    print(json)
+                    
+                    self.items = [
+                        HomeBookItem.init(category: "Latest Story", title: "You'll never miss this one, Okay?", image: #imageLiteral(resourceName: "book1"), description: "", backgroundColor: #colorLiteral(red: 0.8823529412, green: 0.8901960784, blue: 0.8980392157, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: self.getstories)
+                    ]
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                }
+                self.collectionView.reloadData()
+            }
+        }.resume()
+    }
+    
+    /*func fetchData() {
         var fBook: AppGroup?
         var fTopGrossing: AppGroup?
         let dispatchGroup = DispatchGroup()
+        
         dispatchGroup.enter()
         Service.shared.fetchBook { (appGroup, err) in
             fBook = appGroup
@@ -69,15 +106,15 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
         dispatchGroup.notify(queue: .main) {
             print("finish fetching")
             self.activityIndicatorView.stopAnimating()
-            self.items = [
+            /*self.items = [
                 HomeBookItem.init(category: "Latest Story", title: "You'll never miss this one, Okay?", image: #imageLiteral(resourceName: "book1"), description: "", backgroundColor: #colorLiteral(red: 0.8823529412, green: 0.8901960784, blue: 0.8980392157, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: fBook?.feed.results ?? []),
                 HomeBookItem.init(category: "Romance", title: "Find out how beautiful you are", image: #imageLiteral(resourceName: "book2"), description: "", backgroundColor: .black, textColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), cellType: .single, bookResults: fTopGrossing?.feed.results ?? []),
                 HomeBookItem.init(category: "Comedy", title: "Sometimes you just have to enjoy yourself", image: #imageLiteral(resourceName: "marcela-rogante-432403-unsplash"), description: "", backgroundColor: #colorLiteral(red: 0.9450980392, green: 0.937254902, blue: 0.9529411765, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: fBook?.feed.results ?? []),
                 HomeBookItem.init(category: "Horror", title: "Knock! Knock! whos there?", image: #imageLiteral(resourceName: "christian-holzinger-502231-unsplash"), description: "", backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), textColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), cellType: .single, bookResults: fBook?.feed.results ?? []),
-            ]
+            ]*/
             self.collectionView.reloadData()
         }
-    }
+    }*/
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         

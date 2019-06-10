@@ -24,6 +24,8 @@
 		B0587DC2229A6D0D00D24749 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0587DC1229A6D0D00D24749 /* Service.swift */; };
 		B0587DC4229ADE0600D24749 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0587DC3229ADE0600D24749 /* Category.swift */; };
 		B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0587DC5229ADF8C00D24749 /* CategoryViewCell.swift */; };
+		B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57CE22AE655100691A9B /* LoginViewController.swift */; };
+		B05B57D122AE6D2000691A9B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57D022AE6D2000691A9B /* User.swift */; };
 		B06F91ED22AC0D0E007A88B3 /* StroryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */; };
 		B06F91EF22AC3F00007A88B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */; };
 		B06F91F122AD0E34007A88B3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06F91F022AD0E34007A88B3 /* AVFoundation.framework */; };
@@ -73,6 +75,8 @@
 		B0587DC1229A6D0D00D24749 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		B0587DC3229ADE0600D24749 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		B0587DC5229ADF8C00D24749 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		B05B57CE22AE655100691A9B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B05B57D022AE6D2000691A9B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroryContent.swift; sourceTree = "<group>"; };
 		B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B06F91F022AD0E34007A88B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -181,6 +185,7 @@
 				B070440922A965A400D554B0 /* ReadViewController.swift */,
 				B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */,
 				B06F91F222AD1AB4007A88B3 /* AccountViewController.swift */,
+				B05B57CE22AE655100691A9B /* LoginViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				B0CCF77222A357FE00FA718E /* AppGroup.swift */,
 				B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */,
 				B06F91F622AD23B1007A88B3 /* AccountSetting.swift */,
+				B05B57D022AE6D2000691A9B /* User.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -409,9 +415,11 @@
 				B0DAF53B229BCC8600CCDD5C /* BaseListController.swift in Sources */,
 				B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */,
 				B0CCF77B22A6777700FA718E /* BookDetailViewController.swift in Sources */,
+				B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */,
 				B0DAF546229FCB6E00CCDD5C /* BookViewCell.swift in Sources */,
 				B0DAF54A22A1C13800CCDD5C /* BookFullScreenDescriptionViewCell.swift in Sources */,
 				B06F91F322AD1AB4007A88B3 /* AccountViewController.swift in Sources */,
+				B05B57D122AE6D2000691A9B /* User.swift in Sources */,
 				B0CCF76B22A32FDE00FA718E /* BookFullScreenViewController.swift in Sources */,
 				B06F91F722AD23B1007A88B3 /* AccountSetting.swift in Sources */,
 				B0DAF53E229BE2AC00CCDD5C /* DetailViewCell.swift in Sources */,

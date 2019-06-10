@@ -10,12 +10,12 @@ import UIKit
 
 class BookListViewMultiCell: UICollectionViewCell {
     
-    var app: FeedResult! {
+    var app: GetStories! {
         didSet {
-            nameLabel.text = app.name
-            companyLabel.text = app.artistName
+            nameLabel.text = app.title
+            companyLabel.text = app.author
             
-            imageView.sd_setImage(with: URL(string: app.artworkUrl100))
+            imageView.sd_setImage(with: URL(string: app.img))
         }
     }
     
