@@ -20,15 +20,15 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var ftitle: String?
     var imgURLTumb: String?
     
-    struct newIsiContent {
+    /*struct newIsiContent {
         let ncontent: String
     }
     
-    var ncontent: [newIsiContent] = []
+    var ncontent = [newIsiContent]()
     
-    var contentArr = [Any]()
+    var contentArr = [newIsiContent]()*/
     
-    var contentar: String?
+    var contentArr = [String]()
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -82,7 +82,6 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setupView()
         setupClosebtn()
         setupFloatingControl()
-        setupContent()
         fetchStory()
         setupActivityIndicator()
     }
@@ -95,12 +94,12 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postRequest.httpMethod = "POST"
         postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let someID = Int(self.fid!) ?? 0
-        print(someID)
         postRequest.httpBody = ("id=\(someID)").data(using: .utf8)
         
         URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
             DispatchQueue.main.async {
                 print("finish fetching 2")
+                self.tableView.reloadData()
                 self.activityIndicatorView.stopAnimating()
                 if let er = err {
                     print("ada error : \(er)")
@@ -119,23 +118,32 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let content = result.content
                     let contentArr = content.components(separatedBy: "<span>")
                     
-                    for contentar in contentArr {
-                        self.contentar = contentar
-                    }
+                    self.setupNCArr(contentArr: contentArr)
+                    
                     
                 }catch let jsonErr{
                     print(jsonErr)
                 }
                 
-                self.ncontent = [newIsiContent(ncontent: self.contentar!)]
-                print(self.ncontent)
+                /*self.ncontent = [newIsiContent(ncontent: self.contentar!)]
+                print(self.ncontent)*/
             }
             
         }.resume()
     }
     
-    func setupContent() {
-        tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
+    func setupNCArr(contentArr: [String]) {
+        print("Real one \(contentArr.count)")
+        self.contentArr = contentArr
+        setupContent(contentArr: contentArr)
+    }
+    
+    func setupContent(contentArr: [String]) {
+        print("parted \(contentArr)")
+        for item in contentArr {
+            print("lessen \(item)")
+            isiin(item: item)
+        }
     }
     
     func setupView() {
@@ -153,6 +161,14 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.contentInsetAdjustmentBehavior = .never
         let height = UIApplication.shared.statusBarFrame.height
         tableView.contentInset = .init(top: 100, left: 0, bottom: height, right: 0)
+        
+        //isiContent.append(StoryContent(content: "test"))
+        
+    }
+    
+    func isiin(item: String) {
+        tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
+        isiContent.append(StoryContent(content: item ))
     }
     
     func setupFloatingControl() {
@@ -211,21 +227,14 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("inti count \(ncontent.count)")
-        return ncontent.count
-    }
-    
-    func setupCell(indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: contentCellId, for: indexPath) as! ReadViewCell
-        let isic = ncontent[indexPath.item]
-        cell.textLabel!.text = isic.ncontent
-        return cell
+        /*print(section)
+        return section*/
+        return isiContent.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: contentCellId, for: indexPath) as! ReadViewCell
-        let isic = ncontent[indexPath.item]
-        cell.textLabel!.text = isic.ncontent
+        cell.contentStory.text = isiContent[indexPath.item].content
         return cell
     }
     
