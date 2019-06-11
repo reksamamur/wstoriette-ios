@@ -26,6 +26,7 @@
 		B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0587DC5229ADF8C00D24749 /* CategoryViewCell.swift */; };
 		B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57CE22AE655100691A9B /* LoginViewController.swift */; };
 		B05B57D122AE6D2000691A9B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57D022AE6D2000691A9B /* User.swift */; };
+		B05B57D822AF0D7300691A9B /* ReadStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57D722AF0D7300691A9B /* ReadStory.swift */; };
 		B06F91ED22AC0D0E007A88B3 /* StroryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */; };
 		B06F91EF22AC3F00007A88B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */; };
 		B06F91F122AD0E34007A88B3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06F91F022AD0E34007A88B3 /* AVFoundation.framework */; };
@@ -77,6 +78,7 @@
 		B0587DC5229ADF8C00D24749 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		B05B57CE22AE655100691A9B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B05B57D022AE6D2000691A9B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B05B57D722AF0D7300691A9B /* ReadStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStory.swift; sourceTree = "<group>"; };
 		B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroryContent.swift; sourceTree = "<group>"; };
 		B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B06F91F022AD0E34007A88B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -224,6 +226,7 @@
 				B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */,
 				B06F91F622AD23B1007A88B3 /* AccountSetting.swift */,
 				B05B57D022AE6D2000691A9B /* User.swift */,
+				B05B57D722AF0D7300691A9B /* ReadStory.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				B0CCF76422A2D62D00FA718E /* BookViewMultiCell.swift in Sources */,
 				B0587DC4229ADE0600D24749 /* Category.swift in Sources */,
 				B0578CEC229B375E006F0F84 /* DetailViewController.swift in Sources */,
+				B05B57D822AF0D7300691A9B /* ReadStory.swift in Sources */,
 				B0DAF54C22A2844C00CCDD5C /* BookFullscreenVieweHeaderCell.swift in Sources */,
 				B06F91F522AD2235007A88B3 /* AccountViewCell.swift in Sources */,
 			);

@@ -71,9 +71,6 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
                     let jDecoder = JSONDecoder()
                     self.getstories = try jDecoder.decode([GetStories].self, from: data)
                     
-                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    print(json)
-                    
                     self.items = [
                         HomeBookItem.init(category: "Latest Story", title: "You'll never miss this one, Okay?", image: #imageLiteral(resourceName: "book1"), description: "", backgroundColor: #colorLiteral(red: 0.8823529412, green: 0.8901960784, blue: 0.8980392157, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: self.getstories)
                     ]

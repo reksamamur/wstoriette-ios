@@ -15,6 +15,21 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var isiContent = [StoryContent]()
     let contentCellId = "contentCellId"
+    var fid: String?
+    var faudio: String?
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .whiteLarge)
+        aiv.color = .darkGray
+        aiv.startAnimating()
+        aiv.hidesWhenStopped = true
+        return aiv
+    }()
+    
+    func setupActivityIndicator() {
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerInSuperview()
+    }
     
     var player: AVPlayer!
     
@@ -43,7 +58,41 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setupClosebtn()
         setupFloatingControl()
         setupContent()
-        setupAudio()
+        fetchStory()
+        setupActivityIndicator()
+    }
+    
+    func fetchStory() {
+        let post_url_string = "https://storiette-api.azurewebsites.net/story"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("id=\(1)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                self.activityIndicatorView.stopAnimating()
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(ReadStory.self, from: data)
+                    self.setupAudio(urlres: result.audio)
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                }
+            }
+        }.resume()
     }
     
     func setupContent() {
@@ -107,12 +156,18 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         stackView.alignment = .center
     }
     
-    func setupAudio() {
-        let url  = URL.init(string: "https://w31.convertmp3.io/download/get/?id=2S24-y0Ij3Y&r=trkqF1XkBirOdJv9JKylU74BBQhzDhQP&t=%5BLagu123z.Com%5D+BLACKPINK+-+%27Kill+This+Love%27+MV&progressType=button&color=1FCC00")
-        let playerItem: AVPlayerItem = AVPlayerItem(url: url!)
+    func setupAudio(urlres: String) {
+        let mainurl  = URL.init(string: urlres)
+        print("url audio \(mainurl!)")
+        
+        let dummyURL = URL(string: "https://s108.123apps.com/aconv/d/s108YhjCuluR.mp3")
+        
+        let playerItem: AVPlayerItem = AVPlayerItem(url: dummyURL!)
         let duration = playerItem.asset.duration
-        print(duration)
+        print("duration \(duration)")
         player = AVPlayer(playerItem: playerItem)
+        
+        print("play \(player.status)")
     }
     
     @objc func playAudio() {

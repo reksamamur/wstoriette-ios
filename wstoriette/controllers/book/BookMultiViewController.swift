@@ -61,6 +61,7 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
             mview.fimg = clicked.img
             mview.fsynopsis = clicked.synopsis
             mview.fauthor = clicked.author
+            mview.fid = clicked.id
             
             navigationController?.pushViewController(mview, animated: true)
         }

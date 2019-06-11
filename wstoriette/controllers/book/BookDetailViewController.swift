@@ -43,6 +43,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     var fimg: String?
     var fsynopsis: String?
     var fauthor: String?
+    var fid: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +103,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     
     @objc func readStory() {
         let readView = ReadViewController()
+        readView.fid = self.fid
         navigationController?.pushViewController(readView, animated: true)
     }
 }
