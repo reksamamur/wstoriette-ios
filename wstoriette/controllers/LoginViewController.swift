@@ -14,6 +14,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let loginView = UIView()
     private var currentTextField: UITextField?
     
+    var username: String?
+    var password: String?
+    
     let usernameField: UITextField = {
         let field = UITextField()
         field.backgroundColor = .white
@@ -76,6 +79,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.tag = 1
         passwordField.tag = 2
         
+        loginButton.addTarget(self, action: #selector(doingLogin), for: .touchUpInside)
+        
         let stackview = UIStackView(arrangedSubviews: [
             usernameField, passwordField, loginButton, registerButton
             ], customSpacing: 20)
@@ -89,6 +94,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         stackview.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
     
+    @objc func doingLogin(){
+        self.username = usernameField.text
+        self.password = passwordField.text
+        
+        if usernameField.text!.isEmpty || passwordField.text!.isEmpty{
+            print("kosong")
+        }
+
+        print("\(self.username ?? "") + \(self.password ?? "")")
+        
+        fetchUser(username: self.username ?? "", password: self.password ?? "")
+    }
+    
     @objc func keybowardWillChange(notification: Notification) {
         print("keyboard will show \(notification.name.rawValue)")
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {return}
@@ -99,8 +117,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }else{
             view.frame.origin.y = 0
         }
-        
-        
     }
     
     let closeButton: UIButton = {
@@ -150,5 +166,39 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         currentTextField = textField
+    }
+    
+    func fetchUser(username: String, password: String) {
+        let post_url_string = "https://storiette-api.azurewebsites.net/doLogin"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("username=\(username)&password=\(password)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(UserResult.self, from: data)
+                    
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                    print(json)
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                }
+            }
+        }.resume()
     }
 }
