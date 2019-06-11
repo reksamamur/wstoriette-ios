@@ -19,10 +19,15 @@ class BaseTabBarController: UITabBarController, UITabBarControllerDelegate {
         print(tabBarIndex)
         
         //run login page
-        if tabBarIndex == 2 {
-            print("ini nomor 2")
-            let viewLogin = LoginViewController()
-            present(UINavigationController(rootViewController: viewLogin), animated: true)
+        let statuss = UserDefaults.standard.bool(forKey: "status")
+        if statuss == false {
+            if tabBarIndex == 2 {
+                print("ini nomor 2")
+                let viewLogin = LoginViewController()
+                present(UINavigationController(rootViewController: viewLogin), animated: true)
+            }
+        }else{
+            
         }
     }
     

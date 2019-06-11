@@ -19,11 +19,25 @@ class WriteViewController: UIViewController, UITextViewDelegate {
     }()
     
     var textTemp: String!
+    
+    func checkLogin() {
+        let statuss = UserDefaults.standard.bool(forKey: "status")
+        if statuss == false {
+            textField.isEditable = false
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.leftBarButtonItem?.isEnabled = false
+        }else{
+            textField.isEditable = true
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            navigationItem.leftBarButtonItem?.isEnabled = true
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavButton()
         setupWritePanel()
+        checkLogin()
     }
     
     func setupWritePanel() {

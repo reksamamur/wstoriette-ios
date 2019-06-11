@@ -20,6 +20,16 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var ftitle: String?
     var imgURLTumb: String?
     
+    struct newIsiContent {
+        let ncontent: String
+    }
+    
+    var ncontent: [newIsiContent] = []
+    
+    var contentArr = [Any]()
+    
+    var contentar: String?
+    
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
         aiv.color = .darkGray
@@ -106,51 +116,26 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     self.setupAudio(url: URL(string: result.audio)!)
                     
+                    let content = result.content
+                    let contentArr = content.components(separatedBy: "<span>")
+                    
+                    for contentar in contentArr {
+                        self.contentar = contentar
+                    }
+                    
                 }catch let jsonErr{
                     print(jsonErr)
                 }
+                
+                self.ncontent = [newIsiContent(ncontent: self.contentar!)]
+                print(self.ncontent)
             }
+            
         }.resume()
     }
     
     func setupContent() {
         tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
-        isiContent.append(StoryContent(content: "New String"))
     }
     
     func setupView() {
@@ -226,12 +211,21 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isiContent.count
+        print("inti count \(ncontent.count)")
+        return ncontent.count
+    }
+    
+    func setupCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: contentCellId, for: indexPath) as! ReadViewCell
+        let isic = ncontent[indexPath.item]
+        cell.textLabel!.text = isic.ncontent
+        return cell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: contentCellId, for: indexPath) as! ReadViewCell
-        cell.contentStory.text = isiContent[indexPath.item].content
+        let isic = ncontent[indexPath.item]
+        cell.textLabel!.text = isic.ncontent
         return cell
     }
     

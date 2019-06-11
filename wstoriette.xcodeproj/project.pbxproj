@@ -27,6 +27,7 @@
 		B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57CE22AE655100691A9B /* LoginViewController.swift */; };
 		B05B57D122AE6D2000691A9B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57D022AE6D2000691A9B /* User.swift */; };
 		B05B57D822AF0D7300691A9B /* ReadStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B57D722AF0D7300691A9B /* ReadStory.swift */; };
+		B05B5EA022B00467009EAA42 /* CAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B5E9F22B00467009EAA42 /* CAlert.swift */; };
 		B06F91ED22AC0D0E007A88B3 /* StroryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */; };
 		B06F91EF22AC3F00007A88B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */; };
 		B06F91F122AD0E34007A88B3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06F91F022AD0E34007A88B3 /* AVFoundation.framework */; };
@@ -80,6 +81,7 @@
 		B05B57CE22AE655100691A9B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B05B57D022AE6D2000691A9B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B05B57D722AF0D7300691A9B /* ReadStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadStory.swift; sourceTree = "<group>"; };
+		B05B5E9F22B00467009EAA42 /* CAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAlert.swift; sourceTree = "<group>"; };
 		B06F91EC22AC0D0E007A88B3 /* StroryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroryContent.swift; sourceTree = "<group>"; };
 		B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B06F91F022AD0E34007A88B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -213,6 +215,7 @@
 				B047E39D2297CF1400D25602 /* UIView+Layout.swift */,
 				B0DAF541229C2A6D00CCDD5C /* Extentions.swift */,
 				B0DAF543229C2AA400CCDD5C /* VerticalStackView.swift */,
+				B05B5E9F22B00467009EAA42 /* CAlert.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B047E3882296787100D25602 /* wstoriette.xcdatamodeld in Sources */,
 				B0DAF53B229BCC8600CCDD5C /* BaseListController.swift in Sources */,
 				B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */,
+				B05B5EA022B00467009EAA42 /* CAlert.swift in Sources */,
 				B0CCF77B22A6777700FA718E /* BookDetailViewController.swift in Sources */,
 				B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */,
 				B0DAF546229FCB6E00CCDD5C /* BookViewCell.swift in Sources */,

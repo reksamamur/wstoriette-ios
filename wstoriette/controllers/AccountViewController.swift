@@ -18,6 +18,40 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupLogin()
+        setupLogout()
+    }
+    
+    func setupLogin() {
+        let musername = UserDefaults.standard.string(forKey: "musername")
+        if musername == nil {
+            navigationItem.title = "Account"
+        }else{
+            navigationItem.title = musername
+        }
+    }
+    
+    func setupLogout() {
+        
+        let statuss = UserDefaults.standard.bool(forKey: "status")
+        if statuss == false {
+            tableView.isHidden = true
+        }else{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector(handleSignout))
+            tableView.isHidden = false
+        }
+        
+    }
+    
+    @objc func handleSignout(){
+        UserDefaults.standard.set(false, forKey: "status")
+        UserDefaults.standard.set("", forKey: "musername")
+        UserDefaults.standard.synchronize()
+        
+        let alert = CAlert()
+        alert.initalert(on: self, with: "You're already sign out now", message: "We'll miss you")
+        
+        
     }
     
     func setupView() {

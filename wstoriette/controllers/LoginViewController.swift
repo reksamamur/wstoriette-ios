@@ -99,12 +99,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.password = passwordField.text
         
         if usernameField.text!.isEmpty || passwordField.text!.isEmpty{
-            print("kosong")
+            let alert = CAlert()
+            alert.initalert(on: self, with: "Please input these field", message: "Please input your username and password")
+        }else{
+            print("\(self.username ?? "") + \(self.password ?? "")")
+            
+            fetchUser(username: self.username ?? "", password: self.password ?? "")
         }
-
-        print("\(self.username ?? "") + \(self.password ?? "")")
-        
-        fetchUser(username: self.username ?? "", password: self.password ?? "")
     }
     
     @objc func keybowardWillChange(notification: Notification) {
@@ -192,11 +193,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(UserResult.self, from: data)
                     
-                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    print(json)
+                    let username = result.username
+                    
+                    UserDefaults.standard.set(username, forKey: "musername")
+                    
+                    /*let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                    print(json)*/
+                    
+                    UserDefaults.standard.set(true, forKey: "status")
+                    UserDefaults.standard.synchronize()
+                    
+                    self.dismiss(animated: true)
                     
                 }catch let jsonErr{
                     print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalert(on: self, with: "Wrong password or username", message: "Look's like you input wrong username or password")
+                    self.usernameField.text = ""
+                    self.passwordField.text = ""
                 }
             }
         }.resume()
