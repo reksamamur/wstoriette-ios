@@ -16,7 +16,9 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var isiContent = [StoryContent]()
     let contentCellId = "contentCellId"
     var fid: String?
-    var faudio: String?
+    var player: AVPlayer!
+    var ftitle: String?
+    var imgURLTumb: String?
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -31,11 +33,16 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         activityIndicatorView.centerInSuperview()
     }
     
-    var player: AVPlayer!
-    
     let closeButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(#imageLiteral(resourceName: "close"), for: .normal)
+        btn.tintColor = .darkGray
+        return btn
+    }()
+    
+    let nightButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(#imageLiteral(resourceName: "night"), for: .normal)
         btn.tintColor = .darkGray
         return btn
     }()
@@ -50,6 +57,14 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 55, left: 0, bottom: 0, right: 20), size: .init(width: 35, height: 35))
         closeButton.clipsToBounds = true
         closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+    }
+    
+    func setupNightbtn() {
+        view.addSubview(nightButton)
+        nightButton.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        nightButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 55, left: 0, bottom: 0, right: 60), size: .init(width: 35, height: 35))
+        nightButton.clipsToBounds = true
+        nightButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -69,7 +84,9 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var postRequest = URLRequest(url: resourceURL)
         postRequest.httpMethod = "POST"
         postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        postRequest.httpBody = ("id=\(1)").data(using: .utf8)
+        let someID = Int(self.fid!) ?? 0
+        print(someID)
+        postRequest.httpBody = ("id=\(someID)").data(using: .utf8)
         
         URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
             DispatchQueue.main.async {
@@ -86,7 +103,8 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(ReadStory.self, from: data)
-                    self.setupAudio(urlres: result.audio)
+                    
+                    self.setupAudio(url: URL(string: result.audio)!)
                     
                 }catch let jsonErr{
                     print(jsonErr)
@@ -97,6 +115,33 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func setupContent() {
         tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
+        isiContent.append(StoryContent(content: "New String"))
         isiContent.append(StoryContent(content: "New String"))
         isiContent.append(StoryContent(content: "New String"))
         isiContent.append(StoryContent(content: "New String"))
@@ -119,9 +164,10 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.indicatorStyle = .default
         tableView.contentInsetAdjustmentBehavior = .never
         let height = UIApplication.shared.statusBarFrame.height
-        tableView.contentInset = .init(top: 90, left: 0, bottom: height, right: 0)
+        tableView.contentInset = .init(top: 100, left: 0, bottom: height, right: 0)
     }
     
     func setupFloatingControl() {
@@ -130,8 +176,8 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         floatingContainerView.layer.cornerRadius = 13
         view.addSubview(floatingContainerView)
         let bottomPadding = UIApplication.shared.statusBarFrame.height
-        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: bottomPadding, right: 16), size: .init(width: 0, height: 70))
-        let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: bottomPadding, right: 16), size: .init(width: 30, height: 70))
+        let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
         floatingContainerView.addSubview(blurVisualEffectView)
         blurVisualEffectView.fillSuperview()
         
@@ -145,24 +191,25 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         pauseButton.tintColor = .black
         pauseButton.addTarget(self, action: #selector(pauseAudio), for: .touchUpInside)
         
-        let titleBookLabel = UILabel(text: "Nama Book", font: .boldSystemFont(ofSize: 15))
+        let titleBookLabel = UILabel(text: ftitle ?? "", font: .boldSystemFont(ofSize: 15))
+        
+        let bookImageView = UIImageView(cornerRadius: 5)
+        bookImageView.constrainWidth(constant: 50)
+        bookImageView.constrainHeight(constant: view.frame.height)
+        bookImageView.sd_setImage(with: URL(string: imgURLTumb!))
         
         let stackView = UIStackView(arrangedSubviews: [
-            titleBookLabel, UIView(), playButton, pauseButton
+            bookImageView, titleBookLabel, UIView(), playButton, pauseButton
             ], customSpacing: 20)
         
         floatingContainerView.addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        stackView.fillSuperview(padding: .init(top: 15, left: 20, bottom: 15, right: 20))
         stackView.alignment = .center
     }
     
-    func setupAudio(urlres: String) {
-        let mainurl  = URL.init(string: urlres)
-        print("url audio \(mainurl!)")
-        
-        let dummyURL = URL(string: "https://s108.123apps.com/aconv/d/s108YhjCuluR.mp3")
-        
-        let playerItem: AVPlayerItem = AVPlayerItem(url: dummyURL!)
+    func setupAudio(url: URL) {
+        print(url)
+        let playerItem: AVPlayerItem = AVPlayerItem(url: url)
         let duration = playerItem.asset.duration
         print("duration \(duration)")
         player = AVPlayer(playerItem: playerItem)
@@ -186,5 +233,9 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: contentCellId, for: indexPath) as! ReadViewCell
         cell.contentStory.text = isiContent[indexPath.item].content
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

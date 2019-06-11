@@ -54,7 +54,6 @@ class DetailViewCell: UICollectionViewCell {
                 VerticalStackView(arrangedSubviews: [
                     titleLabel,
                     readButton,
-                    favoriteButton,
                     UIView()
                     ], spacing: 12)
                 ], customSpacing: 20),

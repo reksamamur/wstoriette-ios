@@ -104,6 +104,8 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     @objc func readStory() {
         let readView = ReadViewController()
         readView.fid = self.fid
+        readView.ftitle = self.ftitle
+        readView.imgURLTumb = self.fimg
         navigationController?.pushViewController(readView, animated: true)
     }
 }
