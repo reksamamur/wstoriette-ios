@@ -48,11 +48,8 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
     
     var detailId: String! {
         didSet {
-            //print(detailId)
             let url = "https://itunes.apple.com/lookup?id=\(detailId ?? "")"
             Service.shared.fetchGenericJSONData(urlString: url) { (results: SearchResultJSON?, err) in
-                //print(results?.results.first?.trackName ?? "")
-                //print(results?.results.first?.description ?? "")
                 let book = results?.results.first
                 self.book = book
                 DispatchQueue.main.async {
@@ -78,11 +75,20 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
         return 1
     }
     
+    var ftitle: String?
+    var fimg: String?
+    var fsynopsis: String?
+    var fauthor: String?
+    var fid: String?
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellId, for: indexPath) as! DetailViewCell
         cell.titleLabel.text = book?.trackName
+        self.ftitle = book?.trackName
         cell.bookImageView.sd_setImage(with: URL(string: book?.artworkUrl100 ?? ""))
+        self.fimg = book?.artworkUrl100
         cell.descriptionContentLabel.text = book?.description.withoutHtml
+        self.fsynopsis = book?.description.withoutHtml
         cell.authorLabel.text = book?.artistName
         cell.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
         //cell.readsContentLabel.text = "\(book.userRatingCount ?? 0)"
@@ -95,8 +101,11 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
         let dummyC = DetailViewCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
         
         dummyC.titleLabel.text = book?.trackName
+        self.ftitle = book?.trackName
         dummyC.bookImageView.sd_setImage(with: URL(string: book?.artworkUrl100 ?? ""))
+        self.fimg = book?.artworkUrl100
         dummyC.descriptionContentLabel.text = book?.description.withoutHtml
+        self.fsynopsis = book?.description.withoutHtml
         dummyC.authorLabel.text = book?.artistName
         dummyC.descriptionContentLabel.text = book?.description.withoutHtml
         dummyC.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
@@ -111,6 +120,10 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
     
     @objc func readStory() {
         let readView = ReadViewController()
+        self.fid = "\(0)"
+        readView.fid = self.fid
+        readView.ftitle = self.ftitle
+        readView.imgURLTumb = self.fimg
         navigationController?.pushViewController(readView, animated: true)
     }
 }

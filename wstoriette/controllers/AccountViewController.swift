@@ -46,12 +46,11 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func handleSignout(){
         UserDefaults.standard.set(false, forKey: "status")
         UserDefaults.standard.set("", forKey: "musername")
-        UserDefaults.standard.synchronize()
         
         let alert = CAlert()
         alert.initalert(on: self, with: "You're already sign out now", message: "We'll miss you")
         
-        
+        UserDefaults.standard.synchronize()
     }
     
     func setupView() {

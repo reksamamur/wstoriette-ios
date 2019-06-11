@@ -53,15 +53,9 @@ class BookViewCell: BaseBookCell {
         stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20))
         self.topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
         self.topConstraint.isActive = true
-        
-        //        stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-    
-    
-    
 }

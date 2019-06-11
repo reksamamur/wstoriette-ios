@@ -14,7 +14,7 @@ class ReadViewCell: UITableViewCell {
     let contentStory: UILabel = {
         let label = UILabel()
         label.text = "Text here"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
@@ -23,7 +23,7 @@ class ReadViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(contentStory)
-        contentStory.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        contentStory.fillSuperview(padding: .init(top: 0, left: 20, bottom: 0, right: 20))
     }
     
     required init?(coder aDecoder: NSCoder) {

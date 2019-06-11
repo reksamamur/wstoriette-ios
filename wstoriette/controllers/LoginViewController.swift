@@ -196,22 +196,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let username = result.username
                     
                     UserDefaults.standard.set(username, forKey: "musername")
-                    
-                    /*let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    print(json)*/
-                    
                     UserDefaults.standard.set(true, forKey: "status")
-                    UserDefaults.standard.synchronize()
                     
                     self.dismiss(animated: true)
                     
                 }catch let jsonErr{
                     print(jsonErr)
                     let alert = CAlert()
-                    alert.initalert(on: self, with: "Wrong password or username", message: "Look's like you input wrong username or password")
+                    alert.initalertDismissNav(on: self, with: "Wrong password or username", message: "Look's like you input wrong username or password")
                     self.usernameField.text = ""
                     self.passwordField.text = ""
                 }
+                UserDefaults.standard.synchronize()
             }
         }.resume()
     }

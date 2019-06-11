@@ -99,7 +99,6 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
             DispatchQueue.main.async {
                 print("finish fetching 2")
-                self.tableView.reloadData()
                 self.activityIndicatorView.stopAnimating()
                 if let er = err {
                     print("ada error : \(er)")
@@ -118,32 +117,20 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let content = result.content
                     let contentArr = content.components(separatedBy: "<span>")
                     
-                    self.setupNCArr(contentArr: contentArr)
+                    for item in contentArr {
+                        self.isiContent.append(StoryContent(content: item ))
+                    }
                     
                     
                 }catch let jsonErr{
                     print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalertDismissNav(on: self, with: "Opps", message: "look's like something not good just happen")
                 }
-                
-                /*self.ncontent = [newIsiContent(ncontent: self.contentar!)]
-                print(self.ncontent)*/
+                self.tableView.reloadData()
             }
             
         }.resume()
-    }
-    
-    func setupNCArr(contentArr: [String]) {
-        print("Real one \(contentArr.count)")
-        self.contentArr = contentArr
-        setupContent(contentArr: contentArr)
-    }
-    
-    func setupContent(contentArr: [String]) {
-        print("parted \(contentArr)")
-        for item in contentArr {
-            print("lessen \(item)")
-            isiin(item: item)
-        }
     }
     
     func setupView() {
@@ -161,14 +148,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.contentInsetAdjustmentBehavior = .never
         let height = UIApplication.shared.statusBarFrame.height
         tableView.contentInset = .init(top: 100, left: 0, bottom: height, right: 0)
-        
-        //isiContent.append(StoryContent(content: "test"))
-        
-    }
-    
-    func isiin(item: String) {
         tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
-        isiContent.append(StoryContent(content: item ))
     }
     
     func setupFloatingControl() {
@@ -211,7 +191,16 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setupAudio(url: URL) {
         print(url)
         let playerItem: AVPlayerItem = AVPlayerItem(url: url)
-        let duration = playerItem.asset.duration
+        let duration:CMTime = playerItem.asset.duration
+        let seconds: Float64 = CMTimeGetSeconds(duration)
+        
+        let minA = Int(seconds) % 60
+        let secA = Int(seconds / 60)
+        
+        let audioTime = String(minA) + ":" + String(secA)
+        
+        print(audioTime)
+        
         print("duration \(duration)")
         player = AVPlayer(playerItem: playerItem)
         
@@ -227,8 +216,6 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        /*print(section)
-        return section*/
         return isiContent.count
     }
     

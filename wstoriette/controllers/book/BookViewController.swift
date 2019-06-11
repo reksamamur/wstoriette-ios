@@ -72,7 +72,9 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
                     self.getstories = try jDecoder.decode([GetStories].self, from: data)
                     
                     self.items = [
-                        HomeBookItem.init(category: "Latest Story", title: "You'll never miss this one, Okay?", image: #imageLiteral(resourceName: "book1"), description: "", backgroundColor: #colorLiteral(red: 0.8823529412, green: 0.8901960784, blue: 0.8980392157, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: self.getstories)
+                        HomeBookItem.init(category: "Latest Story", title: "You'll never miss this one, Okay?", image: #imageLiteral(resourceName: "book1"), description: "", backgroundColor: #colorLiteral(red: 0.8823529412, green: 0.8901960784, blue: 0.8980392157, alpha: 1), textColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), cellType: .single, bookResults: self.getstories),
+                        HomeBookItem.init(category: "Romance", title: "Will you be my girlfriend", image: #imageLiteral(resourceName: "book2"), description: "", backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), textColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), cellType: .single, bookResults: self.getstories),
+                        HomeBookItem.init(category: "Horror", title: "Knock! Knock!", image: #imageLiteral(resourceName: "christian-holzinger-502231-unsplash"), description: "", backgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), textColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), cellType: .single, bookResults: self.getstories)
                     ]
                     
                 }catch let jsonErr{
