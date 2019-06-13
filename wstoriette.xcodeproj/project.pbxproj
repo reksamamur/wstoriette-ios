@@ -37,6 +37,8 @@
 		B070440A22A965A400D554B0 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070440922A965A400D554B0 /* ReadViewController.swift */; };
 		B070440C22ABB7C600D554B0 /* ReadViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070440B22ABB7C600D554B0 /* ReadViewCell.swift */; };
 		B074C49C22AF945D0040B457 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074C49B22AF945D0040B457 /* UserDefault.swift */; };
+		B08DA40B22B1C712000F847C /* StoryTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08DA40A22B1C712000F847C /* StoryTime.swift */; };
+		B08DA40D22B1DD40000F847C /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08DA40C22B1DD40000F847C /* RegistrationViewController.swift */; };
 		B0CCF76422A2D62D00FA718E /* BookViewMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CCF76322A2D62D00FA718E /* BookViewMultiCell.swift */; };
 		B0CCF76622A3270600FA718E /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CCF76522A3270600FA718E /* BookViewController.swift */; };
 		B0CCF76822A327C700FA718E /* BaseBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CCF76722A327C700FA718E /* BaseBookCell.swift */; };
@@ -91,6 +93,8 @@
 		B070440922A965A400D554B0 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		B070440B22ABB7C600D554B0 /* ReadViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewCell.swift; sourceTree = "<group>"; };
 		B074C49B22AF945D0040B457 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		B08DA40A22B1C712000F847C /* StoryTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTime.swift; sourceTree = "<group>"; };
+		B08DA40C22B1DD40000F847C /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B0CCF76322A2D62D00FA718E /* BookViewMultiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewMultiCell.swift; sourceTree = "<group>"; };
 		B0CCF76522A3270600FA718E /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		B0CCF76722A327C700FA718E /* BaseBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBookCell.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 				B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */,
 				B06F91F222AD1AB4007A88B3 /* AccountViewController.swift */,
 				B05B57CE22AE655100691A9B /* LoginViewController.swift */,
+				B08DA40C22B1DD40000F847C /* RegistrationViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				B06F91F622AD23B1007A88B3 /* AccountSetting.swift */,
 				B05B57D022AE6D2000691A9B /* User.swift */,
 				B05B57D722AF0D7300691A9B /* ReadStory.swift */,
+				B08DA40A22B1C712000F847C /* StoryTime.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */,
 				B05B5EA022B00467009EAA42 /* CAlert.swift in Sources */,
 				B0CCF77B22A6777700FA718E /* BookDetailViewController.swift in Sources */,
+				B08DA40B22B1C712000F847C /* StoryTime.swift in Sources */,
 				B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */,
 				B0DAF546229FCB6E00CCDD5C /* BookViewCell.swift in Sources */,
 				B0DAF54A22A1C13800CCDD5C /* BookFullScreenDescriptionViewCell.swift in Sources */,
@@ -438,6 +445,7 @@
 				B070440C22ABB7C600D554B0 /* ReadViewCell.swift in Sources */,
 				B06F91EF22AC3F00007A88B3 /* CategoryViewController.swift in Sources */,
 				B0CCF76422A2D62D00FA718E /* BookViewMultiCell.swift in Sources */,
+				B08DA40D22B1DD40000F847C /* RegistrationViewController.swift in Sources */,
 				B0587DC4229ADE0600D24749 /* Category.swift in Sources */,
 				B0578CEC229B375E006F0F84 /* DetailViewController.swift in Sources */,
 				B05B57D822AF0D7300691A9B /* ReadStory.swift in Sources */,

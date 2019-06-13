@@ -80,6 +80,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordField.tag = 2
         
         loginButton.addTarget(self, action: #selector(doingLogin), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(doRegisg), for: .touchUpInside)
         
         let stackview = UIStackView(arrangedSubviews: [
             usernameField, passwordField, loginButton, registerButton
@@ -106,6 +107,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             fetchUser(username: self.username ?? "", password: self.password ?? "")
         }
+    }
+    
+    @objc func doRegisg(){
+        let regisController = RegistrationViewController()
+        navigationController?.pushViewController(regisController, animated: true)
     }
     
     @objc func keybowardWillChange(notification: Notification) {

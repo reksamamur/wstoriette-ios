@@ -10,10 +10,10 @@ import Foundation
 struct ReadStory: Codable {
     let content: String
     let audio: String
-    let data: [data]
+    let data: [RSdata]
 }
 
-struct data: Codable {
+struct RSdata: Codable {
     let id: Int
     let time: Float
 }

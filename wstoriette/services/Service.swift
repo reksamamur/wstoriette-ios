@@ -37,7 +37,7 @@ class Service {
                 print("Errr", error)
                 completion([], error)
             }
-            }.resume()
+        }.resume()
     }
     
     func fetchGetStories(completion: @escaping ([GetStories], Error?) -> ()) {
@@ -78,6 +78,15 @@ class Service {
     func fetchBook(completion: @escaping (AppGroup?, Error?) -> ()) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/books/top-free/all/25/explicit.json"
         fetchAppGroup(urlString: urlString, completion: completion)
+    }
+    
+    func fetchReadStory(urlString: String, completion: @escaping (ReadStory?, Error?) -> Void){
+        fetchGenericJSONData(urlString: urlString, completion: completion)
+    }
+    
+    func fetchRSData(completion: @escaping (ReadStory?, Error?) -> ()){
+        let urlString = "https://storiette-api.azurewebsites.net/story"
+        fetchReadStory(urlString: urlString, completion: completion)
     }
     
     func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {

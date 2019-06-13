@@ -9,24 +9,17 @@
 import UIKit
 import AVFoundation
 
-class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate {
     
     let tableView = UITableView(frame: .zero, style: .plain)
     
     var isiContent = [StoryContent]()
+    var timeContent = [StoryTime]()
     let contentCellId = "contentCellId"
     var fid: String?
     var player: AVPlayer!
     var ftitle: String?
     var imgURLTumb: String?
-    
-    /*struct newIsiContent {
-        let ncontent: String
-    }
-    
-    var ncontent = [newIsiContent]()
-    
-    var contentArr = [newIsiContent]()*/
     
     var contentArr = [String]()
     
@@ -112,7 +105,9 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(ReadStory.self, from: data)
                     
-                    self.setupAudio(url: URL(string: result.audio)!)
+                    self.setupAudio(url: result.audio)
+                    
+                    print(result.data.count)
                     
                     let content = result.content
                     let contentArr = content.components(separatedBy: "<span>")
@@ -130,10 +125,11 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.tableView.reloadData()
             }
             
-        }.resume()
+            }.resume()
     }
     
     func setupView() {
+        
         view.backgroundColor = .darkGray
         
         view.clipsToBounds = true
@@ -188,23 +184,43 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         stackView.alignment = .center
     }
     
-    func setupAudio(url: URL) {
-        print(url)
-        let playerItem: AVPlayerItem = AVPlayerItem(url: url)
+    func setupAudio(url: String) {
+        
+        let dummyURL = URL(string: url)
+        
+        let playerItem: AVPlayerItem = AVPlayerItem(url: dummyURL!)
         let duration:CMTime = playerItem.asset.duration
         let seconds: Float64 = CMTimeGetSeconds(duration)
         
         let minA = Int(seconds) % 60
         let secA = Int(seconds / 60)
         
-        let audioTime = String(minA) + ":" + String(secA)
+        let audioTime = String(secA) + ":" + String(minA)
         
-        print(audioTime)
+        print("audio time \(audioTime)")
         
         print("duration \(duration)")
         player = AVPlayer(playerItem: playerItem)
+        print("play \(player.status.rawValue)")
         
-        print("play \(player.status)")
+        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) in
+            var titem: Float?
+            if self.player.currentItem?.status == .readyToPlay {
+                let time : Float64 = CMTimeGetSeconds(self.player.currentTime())
+                titem = Float(time)
+            }
+            
+            print(titem ?? 0)
+            
+            let minA2 = Int(titem ?? 0) % 60
+            let secA2 = Int(titem ?? 0) / 60
+            
+            let audioTime2 = String(secA2) + ":" + String(minA2)
+            
+            print("audio time \(audioTime2)")
+            
+        }
+        
     }
     
     @objc func playAudio() {
