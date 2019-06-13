@@ -9,8 +9,8 @@
 import Foundation
 
 struct CommentStory: Codable {
-    let CommentID: Int
-    let StoryHeaderID: Int
-    let usernam: String
+    let commentID: Int
+    let StoryHeaderID: String
+    let username: String
     let commentText: String
 }

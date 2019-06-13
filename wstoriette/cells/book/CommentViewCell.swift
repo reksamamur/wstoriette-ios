@@ -13,14 +13,14 @@ class CommentViewCell: UICollectionViewCell {
     
     let userLabel = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 18))
     
-    let commentLabel = UILabel(text: "Review body\nReview body\nReview body\n", font: .systemFont(ofSize: 16), numberOfLines: 0)
+    let commentLabel = UILabel(text: "Review body", font: .systemFont(ofSize: 16), numberOfLines: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.9721129663, green: 0.9721129663, blue: 0.9721129663, alpha: 1)
         
-        layer.cornerRadius = 16
+        layer.cornerRadius = 5
         clipsToBounds = true
         
         let stackView = VerticalStackView(arrangedSubviews: [
@@ -29,7 +29,7 @@ class CommentViewCell: UICollectionViewCell {
             ], spacing: 12)
         
         addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        stackView.fillSuperview(padding: .init(top: 0, left: 20, bottom: 20, right: 20))
     }
     
     required init?(coder aDecoder: NSCoder) {

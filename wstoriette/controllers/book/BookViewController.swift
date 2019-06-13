@@ -79,6 +79,8 @@ class BookViewController: BaseListController, UICollectionViewDelegateFlowLayout
                     
                 }catch let jsonErr{
                     print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalertExit(on: self, with: "Woopss something went wrong!", message: "We don't understand what's going on yet, close the app and hope it'll fix the problem 😀")
                 }
                 self.collectionView.reloadData()
             }

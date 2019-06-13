@@ -11,7 +11,7 @@ import UIKit
 class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
-    
+    static var clidid: String!
     var results = [GetStories]()
     
     let closeButton: UIButton = {
@@ -55,13 +55,16 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clicked = results[indexPath.item]
+        
+        BookMultiViewController.clidid = clicked.id
+        
         if mode == .fullscreen {
             let mview = BookDetailViewController()
             mview.ftitle = clicked.title
             mview.fimg = clicked.img
             mview.fsynopsis = clicked.synopsis
             mview.fauthor = clicked.author
-            mview.fid = clicked.id
+            mview.fid = BookMultiViewController.clidid
             
             navigationController?.pushViewController(mview, animated: true)
         }

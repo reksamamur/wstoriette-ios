@@ -51,6 +51,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
         super.viewDidLoad()
         setupView()
         setupClosebtn()
+        print("fid parent \(BookMultiViewController.clidid)")
     }
     
     func setupClosebtn() {
@@ -89,30 +90,33 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let dummyC = DetailViewCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-        
-        dummyC.titleLabel.text = ftitle
-        dummyC.bookImageView.sd_setImage(with: URL(string: fimg ?? ""))
-        dummyC.descriptionContentLabel.text = fsynopsis?.withoutHtml
-        dummyC.authorLabel.text = fauthor
-        dummyC.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
-        dummyC.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
-        
-        //dummyC.appResult = book
-        dummyC.layoutIfNeeded()
-        
-        let estimateSize = dummyC.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-        
-        return .init(width: view.frame.width, height: estimateSize.height)
+        if indexPath.item == 0 {
+            let dummyC = DetailViewCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+            
+            dummyC.titleLabel.text = ftitle
+            dummyC.bookImageView.sd_setImage(with: URL(string: fimg ?? ""))
+            dummyC.descriptionContentLabel.text = fsynopsis?.withoutHtml
+            dummyC.authorLabel.text = fauthor
+            dummyC.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
+            dummyC.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
+            
+            //dummyC.appResult = book
+            dummyC.layoutIfNeeded()
+            
+            let estimateSize = dummyC.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+            return .init(width: view.frame.width, height: estimateSize.height)
+        }else{
+            return .init(width: view.frame.width, height: 200)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 50, left: 20, bottom: 20, right: 20)
+        return .init(top: 55, left: 0, bottom: 20, right: 0)
     }
     
     @objc func readStory() {
         let readView = ReadViewController()
-        readView.fid = self.fid
+        readView.fid = fid
         readView.ftitle = self.ftitle
         readView.imgURLTumb = self.fimg
         navigationController?.pushViewController(readView, animated: true)
@@ -120,7 +124,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     
     @objc func addToFavorite(){
         print("kepencet")
-        fetchFavorite(storyID: Int(self.fid!) ?? 0, username: self.username ?? "")
+        fetchFavorite(storyID: Int(fid!) ?? 0, username: self.username ?? "")
         let alert = CAlert()
         alert.initalert(on: self, with: "Added to favorite", message: "we add this story to favorite")
     }
@@ -145,7 +149,6 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
                 guard let data = data else {return}
                 
                 do{
-                    
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(UserFavorite.self, from: data)
                     print("status add to favorite \(result)")
@@ -156,6 +159,6 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
                     alert.initalert(on: self, with: "Woopss something wrong", message: "we don't know yet")
                 }
             }
-            }.resume()
+        }.resume()
     }
 }
