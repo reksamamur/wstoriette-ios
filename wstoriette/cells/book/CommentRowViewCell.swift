@@ -13,6 +13,8 @@ class CommentRowViewCell: UICollectionViewCell {
     let commentHeadLabel = UILabel(text: "Comment", font: .boldSystemFont(ofSize: 25), numberOfLines: 5)
     
     let commentViewController = CommentViewController()
+    
+    let addcommentButton = UIButton(type: .system)
     /*let usernameLabel = UILabel(text: "Harrry", font: .boldSystemFont(ofSize: 15), numberOfLines: 5)
     
     let commentLabel = UILabel(text: "Harry", font: .systemFont(ofSize: 15))*/
@@ -20,17 +22,21 @@ class CommentRowViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        /*commentLabel.textAlignment = .justified
-        let stackView = VerticalStackView(arrangedSubviews: [commentHeadLabel, usernameLabel, commentLabel, UIView()], spacing: 20)
-        addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))*/
-        
-        let stackView = VerticalStackView(arrangedSubviews: [commentHeadLabel, commentViewController.view], spacing: 20)
+        addcommentButton.setTitle("Add comment", for: .normal)
+        addcommentButton.constrainHeight(constant: 35)
+        let stackView = VerticalStackView(arrangedSubviews: [
+            
+            UIStackView(arrangedSubviews: [
+                commentHeadLabel, UIView(), addcommentButton
+                ], customSpacing: 15
+            ),
+            
+            commentViewController.view
+            
+            ], spacing: 15
+        )
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
-        /*backgroundColor = .white
-        addSubview(commentViewController.view)
-        commentViewController.view.fillSuperview()*/
     }
     
     required init?(coder aDecoder: NSCoder) {

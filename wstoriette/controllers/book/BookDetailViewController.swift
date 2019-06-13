@@ -46,6 +46,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     var fsynopsis: String?
     var fauthor: String?
     var fid: String?
+    var storyID = Int(BookMultiViewController.clidid) ?? 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +85,60 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentCellId, for: indexPath) as! CommentRowViewCell
+            cell.addcommentButton.addTarget(self, action: #selector(popUpComment), for: .touchUpInside)
             return cell
         }
+    }
+    
+    var commentText: String?
+    
+    @objc func popUpComment(){
+        
+        let alertController = UIAlertController(title: "Post comment", message: "", preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Post", style: .default) { [unowned self](action) in
+            guard let textField = alertController.textFields?.first, let itemToAdd = textField.text else {return}
+            self.commentText = itemToAdd
+            self.fetchPostComment(storyID: self.storyID, username: self.username ?? "", commentText: self.commentText ?? "")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addTextField(configurationHandler: nil)
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func fetchPostComment(storyID: Int, username: String, commentText: String) {
+        let post_url_string = "https://storiette-api.azurewebsites.net/postStoryComment"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("username=\(username)&storyId=\(storyID)&commentText=\(commentText)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(CommentPostStory.self, from: data)
+                    print("status add post comment \(result)")
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalert(on: self, with: "Woopss something wrong", message: "we don't know yet")
+                }
+            }
+            }.resume()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

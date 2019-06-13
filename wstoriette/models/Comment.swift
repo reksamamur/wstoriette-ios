@@ -14,3 +14,7 @@ struct CommentStory: Codable {
     let username: String
     let commentText: String
 }
+
+struct CommentPostStory: Codable {
+    let status: String
+}

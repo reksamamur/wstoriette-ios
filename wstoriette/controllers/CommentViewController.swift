@@ -88,6 +88,7 @@ class CommentViewController: HorizontalSnappingController, UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentViewId, for: indexPath) as! CommentViewCell
         let cellcom = appResult[indexPath.item]
         cell.userLabel.text = cellcom.username
+        cell.commentLabel.text = cellcom.commentText
         return cell
     }
     
