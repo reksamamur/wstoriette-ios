@@ -46,6 +46,13 @@ class DetailViewCell: UICollectionViewCell {
         readButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         readButton.setTitleColor(.black, for: .normal)
         favoriteButton.setTitleColor(.black, for: .normal)
+        favoriteButton.backgroundColor = .clear
+        favoriteButton.layer.borderWidth = 2
+        favoriteButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        favoriteButton.constrainHeight(constant: 35)
+        favoriteButton.layer.cornerRadius = 8
+        favoriteButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        favoriteButton.setTitleColor(.black, for: .normal)
         descriptionContentLabel.textAlignment = .justified
         
         let stackView = VerticalStackView(arrangedSubviews: [
@@ -54,6 +61,7 @@ class DetailViewCell: UICollectionViewCell {
                 VerticalStackView(arrangedSubviews: [
                     titleLabel,
                     readButton,
+                    favoriteButton,
                     UIView()
                     ], spacing: 12)
                 ], customSpacing: 20),
@@ -78,12 +86,5 @@ class DetailViewCell: UICollectionViewCell {
             authorLabel.text = appResult.artistName
             readsContentLabel.text = "\(appResult.userRatingCount ?? 0)"
         }
-    }
-}
-
-extension UIStackView {
-    convenience init(arrangedSubviews: [UIView], customSpacing: CGFloat = 0) {
-        self.init(arrangedSubviews: arrangedSubviews)
-        self.spacing = customSpacing
     }
 }

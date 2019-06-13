@@ -41,6 +41,13 @@ extension UITextField {
     }
 }
 
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView], customSpacing: CGFloat = 0) {
+        self.init(arrangedSubviews: arrangedSubviews)
+        self.spacing = customSpacing
+    }
+}
+
 extension UIView {
     func setAnchor(witdh: CGFloat, height: CGFloat) {
         self.setAnchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingRight: 0, paddingLeft: 0, paddingBottom: 0, width: witdh, height: height)

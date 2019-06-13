@@ -14,6 +14,7 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
     
     let detailCellId = "detailCellId"
     var book: ResultJSON!
+    let username = UserDefaults.standard.string(forKey: "username")
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -91,8 +92,7 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
         self.fsynopsis = book?.description.withoutHtml
         cell.authorLabel.text = book?.artistName
         cell.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
-        //cell.readsContentLabel.text = "\(book.userRatingCount ?? 0)"
-        //cell.appResult = book
+        cell.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
         return cell
     }
     
@@ -109,8 +109,7 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
         dummyC.authorLabel.text = book?.artistName
         dummyC.descriptionContentLabel.text = book?.description.withoutHtml
         dummyC.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
-        //dummyC.readsContentLabel.text = "\(book.userRatingCount ?? 0)"
-        //dummyC.appResult = book
+        dummyC.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
         dummyC.layoutIfNeeded()
         
         let estimateSize = dummyC.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
@@ -125,6 +124,47 @@ class DetailViewController: BaseListController, UICollectionViewDelegateFlowLayo
         readView.ftitle = self.ftitle
         readView.imgURLTumb = self.fimg
         navigationController?.pushViewController(readView, animated: true)
+    }
+    
+    @objc func addToFavorite(){
+        print("kepencet")
+        /*fetchFavorite(storyID: Int(self.fid!) ?? 0, username: self.username ?? "")
+        let alert = CAlert()
+        alert.initalert(on: self, with: "Added to favorite", message: "we add this story to favorite")*/
+    }
+    
+    func fetchFavorite(storyID: Int, username: String) {
+        let post_url_string = "https://storiette-api.azurewebsites.net/postUserFavorite"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("username=\(username)&storyId=\(storyID)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(UserFavorite.self, from: data)
+                    print("status regis \(result)")
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalert(on: self, with: "Woopss something wrong", message: "we don't know yet")
+                }
+            }
+            }.resume()
     }
 }
 

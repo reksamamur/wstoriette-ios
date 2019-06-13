@@ -40,4 +40,15 @@ class CAlert {
             vc.present(aler, animated: true, completion: nil)
         }
     }
+    
+    func initalertExit(on vc: UIViewController, with tittle: String, message: String) {
+        let aler = UIAlertController(title: tittle, message: message, preferredStyle: .alert)
+        aler.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
+            action in
+            exit(0)
+        }))
+        DispatchQueue.main.async {
+            vc.present(aler, animated: true, completion: nil)
+        }
+    }
 }

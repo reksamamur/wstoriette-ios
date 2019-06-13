@@ -20,6 +20,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var player: AVPlayer!
     var ftitle: String?
     var imgURLTumb: String?
+    let username = UserDefaults.standard.string(forKey: "username")
     
     var contentArr = [String]()
     
@@ -116,7 +117,6 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         self.isiContent.append(StoryContent(content: item ))
                     }
                     
-                    
                 }catch let jsonErr{
                     print(jsonErr)
                     let alert = CAlert()
@@ -145,6 +145,8 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let height = UIApplication.shared.statusBarFrame.height
         tableView.contentInset = .init(top: 100, left: 0, bottom: height, right: 0)
         tableView.register(ReadViewCell.self, forCellReuseIdentifier: contentCellId)
+        
+        addToHistory(username: username ?? "", storyId: Int(self.fid!) ?? 0)
     }
     
     func setupFloatingControl() {
@@ -243,5 +245,39 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func addToHistory(username: String, storyId: Int) {
+        let post_url_string = "https://storiette-api.azurewebsites.net/postUserFavorite"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("username=\(username)&storyId=\(storyId)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(UserHistoryResult.self, from: data)
+                    print("status add to history \(result.status)")
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalertDismissNav(on: self, with: "Woopss something wrong", message: "we don't know yet")
+                }
+            }
+        }.resume()
     }
 }

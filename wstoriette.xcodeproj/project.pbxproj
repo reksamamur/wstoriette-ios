@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		351E46ABD1BDD4B7C2391A25 /* Pods_wstoriette.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035EA096B1C92E30B21E0C93 /* Pods_wstoriette.framework */; };
+		B046F39422B29292006AACF7 /* WriteFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F39322B29292006AACF7 /* WriteFinishViewController.swift */; };
+		B046F39622B29848006AACF7 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F39522B29848006AACF7 /* HistoryViewController.swift */; };
+		B046F39A22B29CC7006AACF7 /* HistoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F39922B29CC7006AACF7 /* HistoryViewCell.swift */; };
+		B046F39C22B2A642006AACF7 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F39B22B2A642006AACF7 /* FavoriteViewController.swift */; };
+		B046F39F22B2A970006AACF7 /* CommentRowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F39E22B2A970006AACF7 /* CommentRowViewCell.swift */; };
+		B046F3A122B2A9EB006AACF7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F3A022B2A9EB006AACF7 /* Comment.swift */; };
+		B046F3A322B2B2F4006AACF7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F3A222B2B2F4006AACF7 /* CommentViewController.swift */; };
+		B046F3A522B2B400006AACF7 /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F3A422B2B400006AACF7 /* HorizontalSnappingController.swift */; };
+		B046F3A722B2B434006AACF7 /* BetterSnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F3A622B2B434006AACF7 /* BetterSnappingLayout.swift */; };
+		B046F3A922B2B55F006AACF7 /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B046F3A822B2B55F006AACF7 /* CommentViewCell.swift */; };
 		B047E3802296787100D25602 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B047E37F2296787100D25602 /* AppDelegate.swift */; };
 		B047E3822296787100D25602 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B047E3812296787100D25602 /* ViewController.swift */; };
 		B047E3852296787100D25602 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B047E3832296787100D25602 /* Main.storyboard */; };
@@ -62,6 +72,16 @@
 /* Begin PBXFileReference section */
 		035EA096B1C92E30B21E0C93 /* Pods_wstoriette.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wstoriette.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D66EC68B2FA0B0179EADDFB /* Pods-wstoriette.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wstoriette.release.xcconfig"; path = "Target Support Files/Pods-wstoriette/Pods-wstoriette.release.xcconfig"; sourceTree = "<group>"; };
+		B046F39322B29292006AACF7 /* WriteFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteFinishViewController.swift; sourceTree = "<group>"; };
+		B046F39522B29848006AACF7 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		B046F39922B29CC7006AACF7 /* HistoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewCell.swift; sourceTree = "<group>"; };
+		B046F39B22B2A642006AACF7 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		B046F39E22B2A970006AACF7 /* CommentRowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRowViewCell.swift; sourceTree = "<group>"; };
+		B046F3A022B2A9EB006AACF7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		B046F3A222B2B2F4006AACF7 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		B046F3A422B2B400006AACF7 /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
+		B046F3A622B2B434006AACF7 /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
+		B046F3A822B2B55F006AACF7 /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
 		B047E37C2296787100D25602 /* wstoriette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wstoriette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B047E37F2296787100D25602 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B047E3812296787100D25602 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +167,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B046F39D22B2A84E006AACF7 /* account */ = {
+			isa = PBXGroup;
+			children = (
+				B06F91F222AD1AB4007A88B3 /* AccountViewController.swift */,
+				B046F39522B29848006AACF7 /* HistoryViewController.swift */,
+				B046F39B22B2A642006AACF7 /* FavoriteViewController.swift */,
+			);
+			path = account;
+			sourceTree = "<group>";
+		};
 		B047E3732296787100D25602 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +217,7 @@
 		B047E3942296836C00D25602 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B046F39D22B2A84E006AACF7 /* account */,
 				B0CCF76922A32FC700FA718E /* book */,
 				B0DAF53C229BCCA100CCDD5C /* bases */,
 				B047E397229728E600D25602 /* SearchViewController.swift */,
@@ -194,9 +225,10 @@
 				B0DAF54F22A2A96B00CCDD5C /* WriteViewController.swift */,
 				B070440922A965A400D554B0 /* ReadViewController.swift */,
 				B06F91EE22AC3F00007A88B3 /* CategoryViewController.swift */,
-				B06F91F222AD1AB4007A88B3 /* AccountViewController.swift */,
 				B05B57CE22AE655100691A9B /* LoginViewController.swift */,
 				B08DA40C22B1DD40000F847C /* RegistrationViewController.swift */,
+				B046F39322B29292006AACF7 /* WriteFinishViewController.swift */,
+				B046F3A222B2B2F4006AACF7 /* CommentViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -210,6 +242,7 @@
 				B0587DC5229ADF8C00D24749 /* CategoryViewCell.swift */,
 				B0DAF53D229BE2AC00CCDD5C /* DetailViewCell.swift */,
 				B070440B22ABB7C600D554B0 /* ReadViewCell.swift */,
+				B046F39922B29CC7006AACF7 /* HistoryViewCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -221,6 +254,8 @@
 				B0DAF541229C2A6D00CCDD5C /* Extentions.swift */,
 				B0DAF543229C2AA400CCDD5C /* VerticalStackView.swift */,
 				B05B5E9F22B00467009EAA42 /* CAlert.swift */,
+				B046F3A422B2B400006AACF7 /* HorizontalSnappingController.swift */,
+				B046F3A622B2B434006AACF7 /* BetterSnappingLayout.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -238,6 +273,7 @@
 				B05B57D022AE6D2000691A9B /* User.swift */,
 				B05B57D722AF0D7300691A9B /* ReadStory.swift */,
 				B08DA40A22B1C712000F847C /* StoryTime.swift */,
+				B046F3A022B2A9EB006AACF7 /* Comment.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -272,6 +308,8 @@
 				B0CCF76722A327C700FA718E /* BaseBookCell.swift */,
 				B0CCF77022A3548F00FA718E /* BookListViewMultiCell.swift */,
 				B0CCF77822A5948600FA718E /* BookHeaderListViewMultiCell.swift */,
+				B046F39E22B2A970006AACF7 /* CommentRowViewCell.swift */,
+				B046F3A822B2B55F006AACF7 /* CommentViewCell.swift */,
 			);
 			path = book;
 			sourceTree = "<group>";
@@ -406,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B046F3A322B2B2F4006AACF7 /* CommentViewController.swift in Sources */,
 				B0CCF76822A327C700FA718E /* BaseBookCell.swift in Sources */,
 				B0587DBD2299E4EB00D24749 /* SearchResultJSON.swift in Sources */,
 				B0DAF544229C2AA400CCDD5C /* VerticalStackView.swift in Sources */,
@@ -413,6 +452,7 @@
 				B0587DBF2299E4F600D24749 /* ResultJSON.swift in Sources */,
 				B047E398229728E600D25602 /* SearchViewController.swift in Sources */,
 				B047E3822296787100D25602 /* ViewController.swift in Sources */,
+				B046F39A22B29CC7006AACF7 /* HistoryViewCell.swift in Sources */,
 				B0CCF77122A3548F00FA718E /* BookListViewMultiCell.swift in Sources */,
 				B074C49C22AF945D0040B457 /* UserDefault.swift in Sources */,
 				B06F91ED22AC0D0E007A88B3 /* StroryContent.swift in Sources */,
@@ -425,15 +465,22 @@
 				B070440A22A965A400D554B0 /* ReadViewController.swift in Sources */,
 				B0DAF54E22A299E100CCDD5C /* HomeBookItem.swift in Sources */,
 				B0DAF542229C2A6D00CCDD5C /* Extentions.swift in Sources */,
+				B046F3A722B2B434006AACF7 /* BetterSnappingLayout.swift in Sources */,
+				B046F39622B29848006AACF7 /* HistoryViewController.swift in Sources */,
 				B047E39E2297CF1400D25602 /* UIView+Layout.swift in Sources */,
+				B046F3A122B2A9EB006AACF7 /* Comment.swift in Sources */,
 				B0CCF76F22A353C300FA718E /* BookMultiViewController.swift in Sources */,
 				B047E3882296787100D25602 /* wstoriette.xcdatamodeld in Sources */,
 				B0DAF53B229BCC8600CCDD5C /* BaseListController.swift in Sources */,
 				B0587DC6229ADF8C00D24749 /* CategoryViewCell.swift in Sources */,
 				B05B5EA022B00467009EAA42 /* CAlert.swift in Sources */,
+				B046F39422B29292006AACF7 /* WriteFinishViewController.swift in Sources */,
 				B0CCF77B22A6777700FA718E /* BookDetailViewController.swift in Sources */,
 				B08DA40B22B1C712000F847C /* StoryTime.swift in Sources */,
+				B046F39F22B2A970006AACF7 /* CommentRowViewCell.swift in Sources */,
 				B05B57CF22AE655100691A9B /* LoginViewController.swift in Sources */,
+				B046F3A522B2B400006AACF7 /* HorizontalSnappingController.swift in Sources */,
+				B046F39C22B2A642006AACF7 /* FavoriteViewController.swift in Sources */,
 				B0DAF546229FCB6E00CCDD5C /* BookViewCell.swift in Sources */,
 				B0DAF54A22A1C13800CCDD5C /* BookFullScreenDescriptionViewCell.swift in Sources */,
 				B06F91F322AD1AB4007A88B3 /* AccountViewController.swift in Sources */,
@@ -442,6 +489,7 @@
 				B06F91F722AD23B1007A88B3 /* AccountSetting.swift in Sources */,
 				B0DAF53E229BE2AC00CCDD5C /* DetailViewCell.swift in Sources */,
 				B0CCF77322A357FE00FA718E /* AppGroup.swift in Sources */,
+				B046F3A922B2B55F006AACF7 /* CommentViewCell.swift in Sources */,
 				B070440C22ABB7C600D554B0 /* ReadViewCell.swift in Sources */,
 				B06F91EF22AC3F00007A88B3 /* CategoryViewController.swift in Sources */,
 				B0CCF76422A2D62D00FA718E /* BookViewMultiCell.swift in Sources */,

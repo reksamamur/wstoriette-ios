@@ -11,7 +11,9 @@ import UIKit
 class BookDetailViewController: BaseListController, UICollectionViewDelegateFlowLayout {
     
     let detailCellId = "detailCellId"
+    let commentCellId = "commentCellId"
     var book: GetStories!
+    let username = UserDefaults.standard.string(forKey: "username")
     
     let closeButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -59,23 +61,30 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     func setupView() {
         collectionView.backgroundColor = .white
         collectionView.register(DetailViewCell.self, forCellWithReuseIdentifier: detailCellId)
+        collectionView.register(CommentRowViewCell.self, forCellWithReuseIdentifier: commentCellId)
         navigationItem.largeTitleDisplayMode = .never
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellId, for: indexPath) as! DetailViewCell
-        cell.titleLabel.text = ftitle
-        cell.bookImageView.sd_setImage(with: URL(string: fimg ?? ""))
-        cell.descriptionContentLabel.text = fsynopsis?.withoutHtml
-        cell.authorLabel.text = fauthor
-        cell.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
-        //cell.readsContentLabel.text = "\(book.userRatingCount ?? 0)"
-        //cell.appResult = book
-        return cell
+        
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellId, for: indexPath) as! DetailViewCell
+            cell.titleLabel.text = ftitle
+            cell.bookImageView.sd_setImage(with: URL(string: fimg ?? ""))
+            cell.descriptionContentLabel.text = fsynopsis?.withoutHtml
+            cell.authorLabel.text = fauthor
+            cell.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
+            cell.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
+            //cell.appResult = book
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentCellId, for: indexPath) as! CommentRowViewCell
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -87,7 +96,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
         dummyC.descriptionContentLabel.text = fsynopsis?.withoutHtml
         dummyC.authorLabel.text = fauthor
         dummyC.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
-        //dummyC.readsContentLabel.text = "\(book.userRatingCount ?? 0)"
+        dummyC.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
         
         //dummyC.appResult = book
         dummyC.layoutIfNeeded()
@@ -107,5 +116,46 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
         readView.ftitle = self.ftitle
         readView.imgURLTumb = self.fimg
         navigationController?.pushViewController(readView, animated: true)
+    }
+    
+    @objc func addToFavorite(){
+        print("kepencet")
+        fetchFavorite(storyID: Int(self.fid!) ?? 0, username: self.username ?? "")
+        let alert = CAlert()
+        alert.initalert(on: self, with: "Added to favorite", message: "we add this story to favorite")
+    }
+    
+    func fetchFavorite(storyID: Int, username: String) {
+        let post_url_string = "https://storiette-api.azurewebsites.net/postUserFavorite"
+        guard let resourceURL = URL(string: post_url_string) else {return}
+        
+        var postRequest = URLRequest(url: resourceURL)
+        postRequest.httpMethod = "POST"
+        postRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        postRequest.httpBody = ("username=\(username)&storyId=\(storyID)").data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: postRequest) { (data, _, err) in
+            DispatchQueue.main.async {
+                print("finish fetching 2")
+                if let er = err {
+                    print("ada error : \(er)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                
+                do{
+                    
+                    let jDecoder = JSONDecoder()
+                    let result = try jDecoder.decode(UserFavorite.self, from: data)
+                    print("status add to favorite \(result)")
+                    
+                }catch let jsonErr{
+                    print(jsonErr)
+                    let alert = CAlert()
+                    alert.initalert(on: self, with: "Woopss something wrong", message: "we don't know yet")
+                }
+            }
+            }.resume()
     }
 }

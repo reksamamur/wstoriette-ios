@@ -14,26 +14,17 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     var listSetting = [AccountSetting]()
     let tableView = UITableView(frame: .zero, style: .plain)
     let accountCellId = "accountCellId"
+    let username = UserDefaults.standard.string(forKey: "username")
+    let statuss = UserDefaults.standard.bool(forKey: "status")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupLogin()
         setupLogout()
-    }
-    
-    func setupLogin() {
-        let musername = UserDefaults.standard.string(forKey: "musername")
-        if musername == nil {
-            navigationItem.title = "Account"
-        }else{
-            navigationItem.title = musername
-        }
     }
     
     func setupLogout() {
         
-        let statuss = UserDefaults.standard.bool(forKey: "status")
         if statuss == false {
             tableView.isHidden = true
         }else{
@@ -46,9 +37,10 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func handleSignout(){
         UserDefaults.standard.set(false, forKey: "status")
         UserDefaults.standard.set("", forKey: "musername")
+        UserDefaults.standard.set("", forKey: "username")
         
         let alert = CAlert()
-        alert.initalert(on: self, with: "You're already sign out now", message: "We'll miss you")
+        alert.initalertExit(on: self, with: "You're already sign out now", message: "We'll miss you")
         
         UserDefaults.standard.synchronize()
     }
@@ -66,11 +58,30 @@ class AccountViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.register(AccountViewCell.self, forCellReuseIdentifier: accountCellId)
         setupListAccount()
+        
+        print("StatusLogin \(statuss)")
+        print("Nama AKun \(username ?? "")")
     }
     
     func setupListAccount() {
         listSetting.append(AccountSetting(title: "Profile"))
-        listSetting.append(AccountSetting(title: "Draft"))
+        listSetting.append(AccountSetting(title: "History"))
+        listSetting.append(AccountSetting(title: "Favorite"))
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cliked = listSetting[indexPath.item]
+        if cliked.title == "History" {
+            print("keliked history")
+            let historyView = HistoryViewController()
+            navigationController?.pushViewController(historyView, animated: true)
+        }
+        if cliked.title == "Favorite" {
+            print("klik favorite")
+            let favoriteView = FavaoriteViewController()
+            navigationController?.pushViewController(favoriteView, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

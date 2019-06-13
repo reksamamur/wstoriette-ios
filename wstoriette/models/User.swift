@@ -16,3 +16,15 @@ struct UserResult: Codable {
     let status: String
     let username: String
 }
+
+struct UserRegisResult: Codable {
+    let status: String
+}
+
+struct UserFavorite: Codable {
+    let status: String
+}
+
+struct UserHistoryResult: Codable {
+    let status: String
+}

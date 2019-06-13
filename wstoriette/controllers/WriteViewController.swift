@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class WriteViewController: UIViewController, UITextViewDelegate {
     
@@ -19,6 +20,8 @@ class WriteViewController: UIViewController, UITextViewDelegate {
     }()
     
     var textTemp: String!
+    var context: NSManagedObjectContext!
+    var storyItem = [String]()
     
     func checkLogin() {
         let statuss = UserDefaults.standard.bool(forKey: "status")
@@ -32,12 +35,18 @@ class WriteViewController: UIViewController, UITextViewDelegate {
             navigationItem.leftBarButtonItem?.isEnabled = true
         }
     }
+    
+    func setupCoreData() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appDelegate.persistentContainer.viewContext
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavButton()
         setupWritePanel()
         checkLogin()
+        //setupCoreData()
     }
     
     func setupWritePanel() {
@@ -106,6 +115,18 @@ class WriteViewController: UIViewController, UITextViewDelegate {
         print("\(textTemp ?? "")")
         if textTemp == "Write down here" {
             print("kosong")
+        }
+    }
+    
+    func postStory() {
+        let entity = NSEntityDescription.entity(forEntityName: "CoreStory", in: context)
+        let insertStory = NSManagedObject(entity: entity!, insertInto: context)
+        insertStory.setValue(textTemp, forKey: "contentStory")
+        
+        do {
+            try context?.save()
+        } catch {
+            print(error)
         }
     }
 }

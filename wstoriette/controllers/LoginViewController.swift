@@ -17,6 +17,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var username: String?
     var password: String?
     
+    var usernameDefault: String?
+    var status: String?
+    var loginded = true
+    
     let usernameField: UITextField = {
         let field = UITextField()
         field.backgroundColor = .white
@@ -89,7 +93,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         stackview.distribution = .fillProportionally
         view.addSubview(stackview)
         stackview.setAnchor(witdh: self.view.frame.width-60
-            , height: 250)
+            , height: 0)
         stackview.safeBottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -bottomPadding).isActive = true
         /*stackview.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true*/
         stackview.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -106,6 +110,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             print("\(self.username ?? "") + \(self.password ?? "")")
             
             fetchUser(username: self.username ?? "", password: self.password ?? "")
+            let mainView = BaseTabBarController()
+            present(mainView, animated: true)
         }
     }
     
@@ -158,6 +164,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keybowardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keybowardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keybowardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     deinit {
@@ -199,12 +212,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(UserResult.self, from: data)
                     
+                    self.status = result.status
+                    self.usernameDefault = result.username
+                    
                     let username = result.username
+                    print(username)
                     
-                    UserDefaults.standard.set(username, forKey: "musername")
-                    UserDefaults.standard.set(true, forKey: "status")
-                    
-                    self.dismiss(animated: true)
+                    //self.dismiss(animated: true)
                     
                 }catch let jsonErr{
                     print(jsonErr)
@@ -213,6 +227,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.usernameField.text = ""
                     self.passwordField.text = ""
                 }
+                
+                print("my defaults \(self.usernameDefault ?? ""), \(self.status ?? ""), \(self.loginded)")
+                
+                UserDefaults.standard.set(self.usernameDefault, forKey: "username")
+                UserDefaults.standard.set(self.status, forKey: "musername")
+                UserDefaults.standard.set(self.loginded, forKey: "status")
                 UserDefaults.standard.synchronize()
             }
         }.resume()
