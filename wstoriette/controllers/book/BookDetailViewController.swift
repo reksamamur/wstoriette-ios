@@ -14,6 +14,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     let commentCellId = "commentCellId"
     var book: GetStories!
     let username = UserDefaults.standard.string(forKey: "username")
+    let statuss = UserDefaults.standard.bool(forKey: "status")
     
     let closeButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -94,18 +95,23 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     
     @objc func popUpComment(){
         
-        let alertController = UIAlertController(title: "Post comment", message: "", preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Post", style: .default) { [unowned self](action) in
-            guard let textField = alertController.textFields?.first, let itemToAdd = textField.text else {return}
-            self.commentText = itemToAdd
-            self.fetchPostComment(storyID: self.storyID, username: self.username ?? "", commentText: self.commentText ?? "")
+        if statuss == false {
+            let alert = CAlert()
+            alert.initalertDoLogin(on: self, with: "Woops", message: "Please Login first to comment")
+        }else{
+            let alertController = UIAlertController(title: "Post comment", message: "", preferredStyle: .alert)
+            
+            let saveAction = UIAlertAction(title: "Post", style: .default) { [unowned self](action) in
+                guard let textField = alertController.textFields?.first, let itemToAdd = textField.text else {return}
+                self.commentText = itemToAdd
+                self.fetchPostComment(storyID: self.storyID, username: self.username ?? "", commentText: self.commentText ?? "")
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addTextField(configurationHandler: nil)
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addTextField(configurationHandler: nil)
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     func fetchPostComment(storyID: Int, username: String, commentText: String) {

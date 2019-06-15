@@ -51,4 +51,16 @@ class CAlert {
             vc.present(aler, animated: true, completion: nil)
         }
     }
+    
+    func initalertDoLogin(on vc: UIViewController, with tittle: String, message: String) {
+        let aler = UIAlertController(title: tittle, message: message, preferredStyle: .alert)
+        aler.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
+            action in
+            let doLogin = LoginViewController()
+            vc.present(doLogin, animated: true)
+        }))
+        DispatchQueue.main.async {
+            vc.present(aler, animated: true, completion: nil)
+        }
+    }
 }

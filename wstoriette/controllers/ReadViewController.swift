@@ -22,6 +22,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var imgURLTumb: String?
     let username = UserDefaults.standard.string(forKey: "username")
     
+    var audioContent: Any?
     var contentArr = [String]()
     
     let activityIndicatorView: UIActivityIndicatorView = {
@@ -76,7 +77,10 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setupView()
         setupClosebtn()
         setupFloatingControl()
+        let group = DispatchGroup()
+        group.enter()
         fetchStory()
+        group.leave()
         setupActivityIndicator()
     }
     
@@ -106,6 +110,13 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let jDecoder = JSONDecoder()
                     let result = try jDecoder.decode(ReadStory.self, from: data)
                     
+                    let audioArr = result.data
+                
+                    for iaudio in audioArr{
+                        self.timeContent.append(StoryTime(time: iaudio.time))
+                        print("time content dalem do \(self.timeContent.count)")
+                    }
+                    
                     self.setupAudio(url: result.audio)
                     
                     print(result.data.count)
@@ -122,6 +133,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let alert = CAlert()
                     alert.initalertDismissNav(on: self, with: "Opps", message: "look's like something not good just happen")
                 }
+                
                 self.tableView.reloadData()
             }
             
@@ -205,8 +217,10 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         player = AVPlayer(playerItem: playerItem)
         print("play \(player.status.rawValue)")
         
+        var counter = 0
+        
         player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) in
-            var titem: Float?
+            var titem: Float!
             if self.player.currentItem?.status == .readyToPlay {
                 let time : Float64 = CMTimeGetSeconds(self.player.currentTime())
                 titem = Float(time)
@@ -214,13 +228,37 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             print(titem ?? 0)
             
-            let minA2 = Int(titem ?? 0) % 60
-            let secA2 = Int(titem ?? 0) / 60
+//            let minA2 = Int(titem ?? 0) % 60
+//            let secA2 = Int(titem ?? 0) / 60
             
-            let audioTime2 = String(secA2) + ":" + String(minA2)
+           // let audioTime2 = (secA2) + ":" + String(minA2)
             
-            print("audio time \(audioTime2)")
+            //print("audio time \(audioTime2)")
             
+            if titem >= self.timeContent[counter].time {
+                print("ini akan jalan")
+                print("isi counter \(counter)")
+                
+                let cell = self.tableView.cellForRow(at: IndexPath(item: counter, section: 0))
+                cell?.textLabel?.textColor = .yellow
+                cell?.backgroundColor = .yellow
+                
+                /*    let cell = self.tableView.cellForRow(at: IndexPath(row: counter, section: 0))
+                    cell?.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+                
+                
+                if counter != 0 {
+                    let cellprev = self.tableView.cellForRow(at: IndexPath(row: counter-1, section: 0))
+                    cellprev?.backgroundColor = .white
+                }*/
+                
+                
+                counter += 1
+            }
+            
+//            for iaudio in self.timeContent {
+//                print("isi time \(iaudio.time)")
+//            }
         }
         
     }
