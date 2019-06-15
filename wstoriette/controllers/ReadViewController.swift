@@ -24,6 +24,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var audioContent: Any?
     var contentArr = [String]()
+    var counter = 0
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
@@ -217,8 +218,6 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         player = AVPlayer(playerItem: playerItem)
         print("play \(player.status.rawValue)")
         
-        var counter = 0
-        
         player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) in
             var titem: Float!
             if self.player.currentItem?.status == .readyToPlay {
@@ -235,30 +234,21 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             //print("audio time \(audioTime2)")
             
-            if titem >= self.timeContent[counter].time {
+            if titem >= self.timeContent[self.counter].time {
                 print("ini akan jalan")
-                print("isi counter \(counter)")
+                print("isi counter \(self.counter)")
                 
-                let cell = self.tableView.cellForRow(at: IndexPath(item: counter, section: 0))
-                cell?.textLabel?.textColor = .yellow
-                cell?.backgroundColor = .yellow
+                let cell = self.tableView.cellForRow(at: IndexPath(row: self.counter, section: 0))
+                cell?.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
                 
-                /*    let cell = self.tableView.cellForRow(at: IndexPath(row: counter, section: 0))
-                    cell?.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
-                
-                
-                if counter != 0 {
-                    let cellprev = self.tableView.cellForRow(at: IndexPath(row: counter-1, section: 0))
+                if self.counter != 0 {
+                    let cellprev = self.tableView.cellForRow(at: IndexPath(row: self.counter-1, section: 0))
                     cellprev?.backgroundColor = .white
-                }*/
+                }
                 
-                
-                counter += 1
+                self.counter += 1
+                self.tableView.reloadData()
             }
-            
-//            for iaudio in self.timeContent {
-//                print("isi time \(iaudio.time)")
-//            }
         }
         
     }
