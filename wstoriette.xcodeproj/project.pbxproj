@@ -93,7 +93,7 @@
 		B047E395229683D800D25602 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		B047E397229728E600D25602 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B047E39A22972CF800D25602 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
-		B047E39D2297CF1400D25602 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Layout.swift"; path = "../../../../../../Volumes/Data/UIView+Layout.swift"; sourceTree = "<group>"; };
+		B047E39D2297CF1400D25602 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Layout.swift"; path = "../../../../../../Downloads/AppStoreJSONApis 2/AppStoreJSONApis/Helpers/UIView+Layout.swift"; sourceTree = "<group>"; };
 		B0578CEB229B375E006F0F84 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B0587DBC2299E4EB00D24749 /* SearchResultJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultJSON.swift; sourceTree = "<group>"; };
 		B0587DBE2299E4F600D24749 /* ResultJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultJSON.swift; sourceTree = "<group>"; };
