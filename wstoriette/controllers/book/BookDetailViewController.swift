@@ -58,7 +58,7 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
     
     func setupClosebtn() {
         view.addSubview(closeButton)
-        closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 55, left: 0, bottom: 0, right: 20), size: .init(width: 35, height: 35))
+        closeButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 55, left: 20, bottom: 0, right: 20), size: .init(width: 35, height: 35))
     }
     
     func setupView() {

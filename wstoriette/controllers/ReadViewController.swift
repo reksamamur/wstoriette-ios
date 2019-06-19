@@ -60,7 +60,7 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setupClosebtn() {
         view.addSubview(closeButton)
         closeButton.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 55, left: 0, bottom: 0, right: 20), size: .init(width: 35, height: 35))
+        closeButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 55, left: 20, bottom: 0, right: 20), size: .init(width: 35, height: 35))
         closeButton.clipsToBounds = true
         closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
     }
@@ -162,6 +162,9 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         addToHistory(username: username ?? "", storyId: Int(self.fid!) ?? 0)
     }
     
+    var playButton: UIButton!
+    var pauseButton: UIButton!
+    
     func setupFloatingControl() {
         let floatingContainerView = UIView()
         floatingContainerView.clipsToBounds = true
@@ -173,15 +176,15 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
         floatingContainerView.addSubview(blurVisualEffectView)
         blurVisualEffectView.fillSuperview()
         
-        let playButton = UIButton(type: .system)
-        playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-        playButton.tintColor = .black
-        playButton.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
+        self.playButton = UIButton(type: .system)
+        self.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        self.playButton.tintColor = .black
+        self.playButton.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
         
-        let pauseButton = UIButton(type: .system)
-        pauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-        pauseButton.tintColor = .black
-        pauseButton.addTarget(self, action: #selector(pauseAudio), for: .touchUpInside)
+        self.pauseButton = UIButton(type: .system)
+        self.pauseButton.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+        self.pauseButton.tintColor = .black
+        self.pauseButton.addTarget(self, action: #selector(pauseAudio), for: .touchUpInside)
         
         let titleBookLabel = UILabel(text: ftitle ?? "", font: .boldSystemFont(ofSize: 15))
         
@@ -254,11 +257,23 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @objc func playAudio() {
-        player.play()
+        if player.rate == 0 {
+            player.play()
+            self.playButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        }else{
+            player.pause()
+            self.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        }
     }
     
     @objc func pauseAudio() {
-        player.pause()
+        if player.rate == 0 {
+            
+        }else{
+            player.pause()
+            self.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        }
+        player.seek(to: CMTimeMake(value: 0, timescale: 1))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

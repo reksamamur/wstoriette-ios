@@ -43,7 +43,7 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
     
     func setupClosebtn() {
         view.addSubview(closeButton)
-        closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 55, left: 0, bottom: 0, right: 20), size: .init(width: 35, height: 35))
+        closeButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 55, left: 20, bottom: 0, right: 20), size: .init(width: 35, height: 35))
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,7 +89,7 @@ class BookMultiViewController: BaseListController, UICollectionViewDelegateFlowL
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if mode == .fullscreen {
-            return .init(top: 50, left: 20, bottom: 20, right: 20)
+            return .init(top: 85, left: 20, bottom: 20, right: 20)
         }
         return .zero
     }
