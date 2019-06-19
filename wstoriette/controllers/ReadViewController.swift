@@ -55,6 +55,8 @@ class ReadViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @objc func handleDismiss() {
         navigationController?.popViewController(animated: true)
+        player.pause()
+        player.seek(to: CMTimeMake(value: 0, timescale: 1))
     }
     
     func setupClosebtn() {
