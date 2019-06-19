@@ -26,7 +26,11 @@ class DetailViewCell: UICollectionViewCell {
     
     let readsLabel = UILabel(text: "Reads", font: .boldSystemFont(ofSize: 20))
     
-    let readsContentLabel = UILabel(text: "Content", font: .systemFont(ofSize: 20), numberOfLines: 0)
+    let readsContentLabel = UILabel(text: "Content", font: .systemFont(ofSize: 15), numberOfLines: 0)
+    
+    let favLabel = UILabel(text: "Favorite", font: .boldSystemFont(ofSize: 20))
+    
+    let favContentLabel = UILabel(text: "Content", font: .systemFont(ofSize: 15), numberOfLines: 0)
     
     let categoryLabel = UILabel(text: "Fiction", font: .systemFont(ofSize: 15))
     
@@ -68,7 +72,19 @@ class DetailViewCell: UICollectionViewCell {
             authorPlcLabel,
             authorLabel,
             descriptionLabel,
-            descriptionContentLabel
+            descriptionContentLabel,
+            UIStackView(arrangedSubviews: [
+                readsLabel,
+                UIView(),
+                UIView(),
+                readsContentLabel
+                ], customSpacing: 0),
+            UIStackView(arrangedSubviews: [
+                favLabel,
+                UIView(),
+                UIView(),
+                favContentLabel
+                ], customSpacing: 0),
             ], spacing: 16)
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))

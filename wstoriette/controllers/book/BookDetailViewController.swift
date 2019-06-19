@@ -82,6 +82,8 @@ class BookDetailViewController: BaseListController, UICollectionViewDelegateFlow
             cell.authorLabel.text = fauthor
             cell.readButton.addTarget(self, action: #selector(readStory), for: .touchUpInside)
             cell.favoriteButton.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
+            cell.readsContentLabel.text = "100 Reads"
+            cell.favContentLabel.text = "10 Favorited"
             //cell.appResult = book
             return cell
         }else{
